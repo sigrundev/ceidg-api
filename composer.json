@@ -1,0 +1,34 @@
+{
+    "name": "sigrun/ceidg-api",
+    "description": "PHP CEIDG API library",
+    "type": "library",
+    "require": {
+        "php": ">=7.2",
+        "ext-soap": "^7.2",
+        "ext-SimpleXML": "^7.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.4@dev",
+        "phpunit/phpcov": "^6.0@dev",
+        "php-coveralls/php-coveralls": "2.1.x-dev",
+        "vlucas/phpdotenv": "^3.4@dev"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marek Ognicki",
+            "email": "marek@sigrun.eu"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload":{
+      "psr-4": {
+        "CeidgApi\\": "src/"
+      }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "CeidgApi\\Tests\\": "tests/"
+      }
+    }
+}
