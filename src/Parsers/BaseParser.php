@@ -92,6 +92,19 @@ abstract class BaseParser implements XmlParserContract
             return $this->xmlToString($xml);
         }
 
+        return $this->iterateNodes($nodes, $collection);
+    }
+
+    /**
+     * Iterate over nodes, part of XML iterator.
+     *
+     * @param SimpleXMlElement $xml
+     * @param array            $collection
+     *
+     * @return array
+     */
+    protected function iterateNodes(SimpleXMLElement $nodes, array $collection = [])
+    {
         foreach ($nodes as $nodeName => $nodeValue) {
             if (false === ($nodeValueParsed = $this->iterateToNullParser($nodeValue))) {
                 continue;
