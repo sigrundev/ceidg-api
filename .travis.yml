@@ -1,19 +1,18 @@
+sudo: required
 language: php
 
 php:
   - 7.2
   - 7.3
 
-allow_failures:
-  php: nightly
-
-cache:
-  directories:
-    - $HOME/.composer/cache
-
 install:
-  - composer install --no-interaction --no-progress
+  - composer update --prefer-source --no-interaction
 
 script:
-  - composer validate --strict
-  - vendor/bin/phpunit --coverage-clover=coverage.xml
+  - mkdir -p build/logs
+  - php ./vendor/bin/phpunit --coverage-text --verbose
+
+after_script:
+  - mv build/logs/coverage.xml build/logs/coverage.xml.bak
+  - sed 's#/code/##g' build/logs/coverage.xml.bak > build/logs/coverage.xml
+  - php vendor/bin/php-coveralls -v
