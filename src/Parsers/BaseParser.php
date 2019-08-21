@@ -80,10 +80,10 @@ abstract class BaseParser implements XmlParserContract
             }
 
             foreach ($nodes as $nodeName => $nodeValue) {
-
-                if('' !== ($nodeValueParsed = $parser($nodeValue))) {
-                    if(count($nodeValue->xpath('../'.$nodeName)) < 2) {
+                if ('' !== ($nodeValueParsed = $parser($nodeValue))) {
+                    if (\count($nodeValue->xpath('../'.$nodeName)) < 2) {
                         $collection[$nodeName] = $nodeValueParsed;
+
                         continue;
                     }
                     $collection[$nodeName][] = $nodeValueParsed;
