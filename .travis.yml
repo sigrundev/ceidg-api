@@ -9,7 +9,8 @@ install:
   - composer update --prefer-source --no-interaction
 
 script:
-  - printenv > .env
+  - printenv | grep CEIDG_AUTH_TOKEN > .env
+  - printenv | grep DOTENV_LOADED > .env
   - mkdir -p build/logs
   - php ./vendor/bin/phpunit --coverage-text --verbose
 
