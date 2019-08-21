@@ -1,0 +1,22 @@
+language: php
+
+php:
+  - 7.2
+  - 7.3
+
+allow_failures:
+  php: nightly
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+install:
+  - composer install --no-interaction --no-progress
+
+script:
+  - composer validate --strict
+  - vendor/bin/phpunit --coverage-clover=coverage.xml
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
