@@ -69,15 +69,12 @@ class CeidgEnvelope implements CeidgEnvelopeContract
         $name = str_replace('set', '', $name);
 
         if (\in_array($name, array_keys($this->allowedParams), true)) {
-            if ('single' === $this->allowedParams[$name]) {
-                if (false !== ($validated = $this->validate($name, $this->processSingleParam($value)))) {
-                    $this->params[$name] = $validated;
-                }
-            }
-            if ('list' === $this->allowedParams[$name]) {
-                if (false !== ($validated = $this->validate($name, $this->processListParam($value)))) {
-                    $this->params[$name] = $validated;
-                }
+            $validated = 'single' === $this->allowedParams[$name]
+                ? $this->processSingleParam($value)
+                : $this->processListParam($value);
+
+            if (false !== $validated) {
+                $this->params[$name] = $validated;
             }
         }
 
