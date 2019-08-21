@@ -75,29 +75,18 @@ abstract class BaseParser implements XmlParserContract
             $nodes = $xml->children();
             $attributes = $xml->attributes();
 
-            if (0 !== \count($attributes)) {
-                foreach ($attributes as $attrName => $attrValue) {
-                    $collection['attributes'][$attrName] = (string) $attrValue;
-                }
-            }
-
             if (0 === $nodes->count()) {
                 return (string) $xml;
             }
 
             foreach ($nodes as $nodeName => $nodeValue) {
-                if (\count($nodeValue->xpath('../'.$nodeName)) < 2) {
-                    $nodeValue = $parser($nodeValue);
-                    if ('' !== $nodeValue) {
-                        $collection[$nodeName] = $nodeValue;
+
+                if('' !== ($nodeValueParsed = $parser($nodeValue))) {
+                    if(count($nodeValue->xpath('../'.$nodeName)) < 2) {
+                        $collection[$nodeName] = $nodeValueParsed;
+                        continue;
                     }
-
-                    continue;
-                }
-
-                $nodeValue = $parser($nodeValue);
-                if ('' !== $nodeValue) {
-                    $collection[$nodeName][] = $nodeValue;
+                    $collection[$nodeName][] = $nodeValueParsed;
                 }
             }
 
