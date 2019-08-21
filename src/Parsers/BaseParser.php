@@ -28,7 +28,7 @@ abstract class BaseParser implements XmlParserContract
     public static function make($callFunctionName): XmlParserContract
     {
         $parsers = [
-            'GetId' => IdParser::class,
+            'GetId'                  => IdParser::class,
             'GetMigrationData201901' => MigrationDataParser::class,
         ];
 
