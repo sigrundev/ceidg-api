@@ -23,13 +23,25 @@ class TestSuite extends TestCase
     {
         parent::__construct();
 
-        if (!isset($_ENV['CEIDG_AUTH_TOKEN']) || null === $_ENV['CEIDG_AUTH_TOKEN']) {
-            // Trying to load from file
-            $dotenv = Dotenv::create(\dirname(__DIR__));
-            $dotenv->load();
-        }
+        if(!function_exists('env') || null === \env('CEIDG_AUTH_TOKEN')) {
 
-        $this->authToken = $_ENV['CEIDG_AUTH_TOKEN'];
-        $this->dotenvLoaded = 'true' === $_ENV['DOTENV_LOADED'];
+            if (!isset($_ENV['CEIDG_AUTH_TOKEN']) || null === $_ENV['CEIDG_AUTH_TOKEN']) {
+                // Trying to load from file
+                if(file_exists(\dirname(___DIR___))) {
+                    $dotenv = Dotenv::create(\dirname(__DIR__));
+                    $dotenv->load();
+                } else {
+                    throw new \Exception('Cannot load env');
+                }
+            }
+
+            $this->authToken = $_ENV['CEIDG_AUTH_TOKEN'];
+            $this->dotenvLoaded = 'true' === $_ENV['DOTENV_LOADED'];
+
+        } else {
+
+            $this->authToken = \env('CEIDG_AUTH_TOKEN');
+            $this->dotenvLoaded = 'true' === \env('DOTENV_LOADED');
+        }
     }
 }
