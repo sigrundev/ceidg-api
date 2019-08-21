@@ -73,19 +73,19 @@ abstract class BaseParser implements XmlParserContract
     {
         $parser = function (SimpleXMLElement $xml, array $collection = []) use (&$parser) {
             $nodes = $xml->children();
-            $attributes = $xml->attributes();
 
             if (0 === $nodes->count()) {
-                return (string) $xml;
+                return $this->xmlToString($xml);
             }
 
             foreach ($nodes as $nodeName => $nodeValue) {
-                if ('' !== ($nodeValueParsed = $parser($nodeValue))) {
-                    if (\count($nodeValue->xpath('../'.$nodeName)) < 2) {
-                        $collection[$nodeName] = $nodeValueParsed;
+                if (false === ($nodeValueParsed = $parser($nodeValue))) {
+                    continue;
+                }
 
-                        continue;
-                    }
+                if (\count($nodeValue->xpath('../'.$nodeName)) < 2) {
+                    $collection[$nodeName] = $nodeValueParsed;
+                } else {
                     $collection[$nodeName][] = $nodeValueParsed;
                 }
             }
@@ -96,6 +96,26 @@ abstract class BaseParser implements XmlParserContract
         return [
             $xml->getName() => $parser($xml),
         ];
+    }
+
+    /**
+     * Converts xml node with 0 children to string or false if string is empty.
+     *
+     * @param SimpleXMLElement $xml
+     *
+     * @throws Exception
+     *
+     * @return bool|string
+     */
+    protected function xmlToString(SimpleXMLElement $xml)
+    {
+        if ($xml->children()->count() > 0) {
+            throw new Exception('XML cannot be converted to string');
+        }
+
+        $xml = (string) $xml;
+
+        return \strlen($xml) > 0 ? $xml : false;
     }
 
     /**
