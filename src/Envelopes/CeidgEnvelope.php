@@ -66,26 +66,11 @@ class CeidgEnvelope implements CeidgEnvelopeContract
      */
     public function __call($name, $value): CeidgEnvelopeContract
     {
-        $name = str_replace('set', '', $name);
-
-        if (\in_array($name, array_keys($this->allowedParams), true)) {
-            $validated = 'single' === $this->allowedParams[$name]
-                ? $this->validate($name, $this->processSingleParam($value))
-                : $this->validate($name, $this->processListParam($value));
-
-            if (false !== $validated) {
-                $this->params[$name] = $validated;
-            }
+        if (0 !== strpos(ucfirst($name), 'Set')) {
+            return $this->filterParams($name);
         }
 
-        if ($this->isParamEmpty($name) || false === $validated) {
-            try {
-                unset($this->params[$name]);
-            } catch (Exception $e) {
-            }
-        }
-
-        return $this;
+        return $this->setParam(str_replace('Set', '', ucfirst($name)), $value);
     }
 
     /**
@@ -145,6 +130,51 @@ class CeidgEnvelope implements CeidgEnvelopeContract
     public function validate($name, $value)
     {
         return BaseValidator::getValidator($name)->validate($value);
+    }
+
+    /**
+     * Filter empty params: zero-element arrays, or empty strings.
+     *
+     * @param string $name
+     * @param bool   $validated
+     * @param mixed  $validationResult
+     *
+     * @return CeidgEnvelopeContract
+     */
+    protected function filterParams($name, $validationResult = false): CeidgEnvelopeContract
+    {
+        if ($this->isParamEmpty($name) || false === $validationResult) {
+            try {
+                unset($this->params[$name]);
+            } catch (Exception $e) {
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Filter empty params: zero-element arrays, or empty strings.
+     *
+     * @param string $name
+     * @param bool   $validated
+     * @param mixed  $value
+     *
+     * @return CeidgEnvelopeContract
+     */
+    protected function setParam($name, $value): CeidgEnvelopeContract
+    {
+        if (\in_array($name, array_keys($this->allowedParams), true)) {
+            $validated = 'single' === $this->allowedParams[$name]
+                ? $this->validate($name, $this->processSingleParam($value))
+                : $this->validate($name, $this->processListParam($value));
+
+            if (false !== $validated) {
+                $this->params[$name] = $validated;
+            }
+        }
+
+        return $this->filterParams($name, false !== $validated);
     }
 
     /**
