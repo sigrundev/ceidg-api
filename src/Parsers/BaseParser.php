@@ -71,15 +71,28 @@ abstract class BaseParser implements XmlParserContract
      */
     public function iterateToNull(SimpleXMLElement $xml): array
     {
-        $parser = function (SimpleXMLElement $xml, array $collection = []) use (&$parser) {
+        return [
+            $xml->getName() => $this->iterateToNullParser($xml),
+        ];
+    }
+
+    /**
+     * Recursively parse XML tree and return as array or string
+     * 
+     * @param SimpleXMlElement $xml
+     * @param array $collection
+     * 
+     * @return array|string
+     */
+    protected function iterateToNullParser(SimpleXMLElement $xml, array $collection = [])
+    {
+        try {
+            return $this->xmlToString($xml);
+        } catch (\Exception $e) {
             $nodes = $xml->children();
 
-            if (0 === $nodes->count()) {
-                return $this->xmlToString($xml);
-            }
-
             foreach ($nodes as $nodeName => $nodeValue) {
-                if (false === ($nodeValueParsed = $parser($nodeValue))) {
+                if (false === ($nodeValueParsed = $this->iterateToNullParser($nodeValue))) {
                     continue;
                 }
 
@@ -91,11 +104,7 @@ abstract class BaseParser implements XmlParserContract
             }
 
             return $collection;
-        };
-
-        return [
-            $xml->getName() => $parser($xml),
-        ];
+        }
     }
 
     /**
