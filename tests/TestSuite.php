@@ -27,7 +27,7 @@ class TestSuite extends TestCase
 
             if (!isset($_ENV['CEIDG_AUTH_TOKEN']) || null === $_ENV['CEIDG_AUTH_TOKEN']) {
                 // Trying to load from file
-                if(file_exists(\dirname(___DIR___))) {
+                if(file_exists(\dirname(__DIR__))) {
                     $dotenv = Dotenv::create(\dirname(__DIR__));
                     $dotenv->load();
                 } else {
