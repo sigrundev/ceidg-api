@@ -9,6 +9,7 @@ install:
   - composer update --prefer-source --no-interaction
 
 script:
+  - printenv > .env
   - mkdir -p build/logs
   - php ./vendor/bin/phpunit --coverage-text --verbose
 
