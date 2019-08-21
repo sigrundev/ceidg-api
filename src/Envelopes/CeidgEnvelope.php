@@ -81,9 +81,7 @@ class CeidgEnvelope implements CeidgEnvelopeContract
             }
         }
 
-        if ((\is_array($this->params[$name]) && 0 === \count($this->params[$name]))
-            || !\is_array($this->params[$name]) && '' === $this->params[$name]
-            || \is_bool($validated) && false === $validated) {
+        if ($this->isParamEmpty($name) || false === $validated) {
             try {
                 unset($this->params[$name]);
             } catch (Exception $e) {
@@ -150,6 +148,29 @@ class CeidgEnvelope implements CeidgEnvelopeContract
     public function validate($name, $value)
     {
         return BaseValidator::getValidator($name)->validate($value);
+    }
+
+    /**
+     * Check whether query param by the name $name is empty, either a zero-element
+     * array or empty string.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    protected function isParamEmpty($name): bool
+    {
+        // Param is an array with zero elements
+        if (\is_array($this->params[$name]) && 0 === \count($this->params[$name])) {
+            return true;
+        }
+
+        // Param is an empty string
+        if (!\is_array($this->params[$name]) && '' === $this->params[$name]) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
