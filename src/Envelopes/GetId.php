@@ -17,10 +17,10 @@ class GetId extends CeidgEnvelope
      * {@inheritdoc}
      */
     protected $allowedParams = [
-        'DateTo' => 'single',
-        'DateFrom' => 'single',
+        'DateTo'            => 'single',
+        'DateFrom'          => 'single',
         'MigrationDateFrom' => 'single',
-        'MigrationDateTo' => 'single',
+        'MigrationDateTo'   => 'single',
     ];
 
     /**

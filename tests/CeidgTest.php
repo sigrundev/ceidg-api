@@ -83,10 +83,10 @@ final class CeidgTest extends TestSuite
     public function testGetIdParams()
     {
         $params = [
-            'DateFrom' => date('Y-m-d'),
-            'DateTo' => date('Y-m-d'),
+            'DateFrom'          => date('Y-m-d'),
+            'DateTo'            => date('Y-m-d'),
             'MigrationDateFrom' => date('Y-m-d'),
-            'MigrationDateTo' => date('Y-m-d'),
+            'MigrationDateTo'   => date('Y-m-d'),
         ];
 
         $getId = (new CeidgApi($this->authToken))->getId();
@@ -110,10 +110,10 @@ final class CeidgTest extends TestSuite
     public function testGetMigrationDataParamsWithoutListParams()
     {
         $params = [
-            'DateFrom' => date('Y-m-d'),
-            'DateTo' => date('Y-m-d'),
+            'DateFrom'          => date('Y-m-d'),
+            'DateTo'            => date('Y-m-d'),
             'MigrationDateFrom' => date('Y-m-d'),
-            'MigrationDateTo' => date('Y-m-d'),
+            'MigrationDateTo'   => date('Y-m-d'),
         ];
 
         $getMigrationData = (new CeidgApi($this->authToken))->getMigrationData();
