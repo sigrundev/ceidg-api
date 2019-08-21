@@ -77,34 +77,34 @@ abstract class BaseParser implements XmlParserContract
     }
 
     /**
-     * Recursively parse XML tree and return as array or string
-     * 
+     * Recursively parse XML tree and return as array or string.
+     *
      * @param SimpleXMlElement $xml
-     * @param array $collection
-     * 
+     * @param array            $collection
+     *
      * @return array|string
      */
     protected function iterateToNullParser(SimpleXMLElement $xml, array $collection = [])
     {
-        try {
+        $nodes = $xml->children();
+
+        if (0 === $nodes->count()) {
             return $this->xmlToString($xml);
-        } catch (\Exception $e) {
-            $nodes = $xml->children();
+        }
 
-            foreach ($nodes as $nodeName => $nodeValue) {
-                if (false === ($nodeValueParsed = $this->iterateToNullParser($nodeValue))) {
-                    continue;
-                }
-
-                if (\count($nodeValue->xpath('../'.$nodeName)) < 2) {
-                    $collection[$nodeName] = $nodeValueParsed;
-                } else {
-                    $collection[$nodeName][] = $nodeValueParsed;
-                }
+        foreach ($nodes as $nodeName => $nodeValue) {
+            if (false === ($nodeValueParsed = $this->iterateToNullParser($nodeValue))) {
+                continue;
             }
 
-            return $collection;
+            if (\count($nodeValue->xpath('../'.$nodeName)) < 2) {
+                $collection[$nodeName] = $nodeValueParsed;
+            } else {
+                $collection[$nodeName][] = $nodeValueParsed;
+            }
         }
+
+        return $collection;
     }
 
     /**
