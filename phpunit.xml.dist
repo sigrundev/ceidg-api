@@ -5,7 +5,13 @@
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.2/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          colors="true"
+         stopOnError="false"
+         stopOnFailure="false"
+         verbose="true"
 >
+    <logging>
+        <log type="coverage-clover" target="build/logs/coverage.xml"/>
+    </logging>
     <testsuites>
         <testsuite name="Project Test Suite">
             <directory>tests</directory>
@@ -16,7 +22,4 @@
             <directory>src</directory>
         </whitelist>
     </filter>
-    <logging>
-        <log type="coverage-html" target="build" lowUpperBound="50" highLowerBound="80" />
-    </logging>
 </phpunit>
