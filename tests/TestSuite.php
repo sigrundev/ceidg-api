@@ -21,15 +21,9 @@ class TestSuite extends TestCase
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
+        $this->authToken = getenv('CEIDG_AUTH_TOKEN') !== null ? getenv('CEIDG_AUTH_TOKEN') : $CEIDG_AUTH_TOKEN;
+        
         parent::__construct();
-
-        if(getenv('CEIDG_AUTH_TOKEN') !== null) {
-            $this->authToken = getenv('CEIDG_AUTH_TOKEN');
-        }
-
-        if(getenv('DOTENV_LOADED') !== null) {
-            $this->dotenvLoaded = 'true' === getenv('DOTENV_LOADED');
-        }
 
     }
 }

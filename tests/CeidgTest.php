@@ -23,7 +23,6 @@ final class CeidgTest extends TestSuite
 {
     public function testDotenvLoaded()
     {
-        $this->assertTrue($this->dotenvLoaded);
         $this->assertNotNull($this->authToken);
     }
 
