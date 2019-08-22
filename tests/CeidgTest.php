@@ -160,6 +160,33 @@ final class CeidgTest extends TestSuite
         $this->assertFalse(isset($getMigrationData->getParams()['NIP']));
     }
 
+    public function testGetMigrationDataNip_SCParam()
+    {
+        /**
+         * Initial tests - everything should be ok.
+         */
+        $getMigrationData = (new CeidgApi($this->authToken))->getMigrationData();
+
+        $getMigrationData->setNIP_SC('1132008789');
+        $this->assertSame($getMigrationData->getParams()['NIP_SC'], ['1132008789']);
+
+        $getMigrationData->setNIP_SC('1132008789', '1132430459');
+        $this->assertSame($getMigrationData->getParams()['NIP_SC'], ['1132008789', '1132430459']);
+
+        $getMigrationData->setNIP_SC(['1132008789', '1132430459']);
+        $this->assertSame($getMigrationData->getParams()['NIP_SC'], ['1132008789', '1132430459']);
+
+        // Sorting out faulty NIP numbers
+        $getMigrationData->setNIP_SC('1132430455');
+        $this->assertFalse(isset($getMigrationData->getParams()['NIP_SC']));
+
+        $getMigrationData->setNIP_SC('1132008785', '1132430459');
+        $this->assertSame($getMigrationData->getParams()['NIP_SC'], ['1132430459']);
+
+        $getMigrationData->setNIP_SC(['1132008785', '1132430453']);
+        $this->assertFalse(isset($getMigrationData->getParams()['NIP_SC']));
+    }
+
     public function testGetMigrationDataRegonParam()
     {
         /**
@@ -185,6 +212,33 @@ final class CeidgTest extends TestSuite
 
         $getMigrationData->setREGON(['141702755', '012693550']);
         $this->assertFalse(isset($getMigrationData->getParams()['REGON']));
+    }
+
+    public function testGetMigrationDataRegon_SCParam()
+    {
+        /**
+         * Initial tests - everything should be ok.
+         */
+        $getMigrationData = (new CeidgApi($this->authToken))->getMigrationData();
+
+        $getMigrationData->setREGON_SC('141702750');
+        $this->assertSame($getMigrationData->getParams()['REGON_SC'], ['141702750']);
+
+        $getMigrationData->setREGON_SC('141702750', '012693590');
+        $this->assertSame($getMigrationData->getParams()['REGON_SC'], ['141702750', '012693590']);
+
+        $getMigrationData->setREGON_SC(['141702750', '012693590']);
+        $this->assertSame($getMigrationData->getParams()['REGON_SC'], ['141702750', '012693590']);
+
+        // Sorting out faulty REGON numbers
+        $getMigrationData->setREGON_SC('141702755');
+        $this->assertFalse(isset($getMigrationData->getParams()['REGON_SC']));
+
+        $getMigrationData->setREGON_SC('141702755', '012693590');
+        $this->assertSame($getMigrationData->getParams()['REGON_SC'], ['012693590']);
+
+        $getMigrationData->setREGON_SC(['141702755', '012693550']);
+        $this->assertFalse(isset($getMigrationData->getParams()['REGON_SC']));
     }
 
     public function testGetMigrationDataPostcodeParam()
