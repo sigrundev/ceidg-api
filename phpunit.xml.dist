@@ -15,6 +15,7 @@
     <testsuites>
         <testsuite name="Project Test Suite">
             <directory>tests</directory>
+            <exclude>tests/TestSuite.php</exclude>
         </testsuite>
     </testsuites>
     <filter>
