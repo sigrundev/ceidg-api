@@ -17,17 +17,28 @@ use CeidgApi\Contracts\CeidgEnvelopeContract;
 use CeidgApi\Envelopes\CeidgEnvelope;
 use CeidgApi\Envelopes\GetId;
 use CeidgApi\Envelopes\GetMigrationData;
+use PHPUnit\Framework\TestCase;
 use SoapClient;
 
-final class CeidgTest extends TestSuite
+final class CeidgTest extends TestCase
 {
+    protected $authToken;
+    protected $dotenvLoaded = false;
+
+    protected function setEnv()
+    {
+        $this->authToken = getenv('CEIDG_AUTH_TOKEN') !== null ? getenv('CEIDG_AUTH_TOKEN') : $CEIDG_AUTH_TOKEN;
+    }
+
     public function testDotenvLoaded()
     {
+        $this->setEnv();
         $this->assertNotNull($this->authToken);
     }
 
     public function testConstruct()
     {
+        $this->setEnv();
         $ceidgApi = new CeidgApi($this->authToken);
 
         $this->assertObjectHasAttribute('productionUrl', $ceidgApi);
@@ -40,6 +51,7 @@ final class CeidgTest extends TestSuite
 
     public function testGetClient()
     {
+        $this->setEnv();
         $ceidgApi = new CeidgApi($this->authToken);
 
         $this->assertInstanceOf(SoapClient::class, $ceidgApi->getClient());
@@ -47,6 +59,7 @@ final class CeidgTest extends TestSuite
 
     public function testGetId()
     {
+        $this->setEnv();
         $ceidgApi = new CeidgApi($this->authToken);
 
         $this->assertInstanceOf(CeidgEnvelope::class, $ceidgApi->getId());
@@ -60,6 +73,7 @@ final class CeidgTest extends TestSuite
 
     public function testGetMigrationData()
     {
+        $this->setEnv();
         $ceidgApi = new CeidgApi($this->authToken);
 
         $this->assertInstanceOf(CeidgEnvelope::class, $ceidgApi->getMigrationData());
@@ -81,6 +95,8 @@ final class CeidgTest extends TestSuite
 
     public function testGetIdParams()
     {
+        $this->setEnv();
+
         $params = [
             'DateFrom'          => date('Y-m-d'),
             'DateTo'            => date('Y-m-d'),
@@ -108,6 +124,8 @@ final class CeidgTest extends TestSuite
 
     public function testGetMigrationDataParamsWithoutListParams()
     {
+        $this->setEnv();
+
         $params = [
             'DateFrom'          => date('Y-m-d'),
             'DateTo'            => date('Y-m-d'),
@@ -135,6 +153,9 @@ final class CeidgTest extends TestSuite
 
     public function testGetMigrationDataNipParam()
     {
+
+        $this->setEnv();
+
         /**
          * Initial tests - everything should be ok.
          */
@@ -162,6 +183,8 @@ final class CeidgTest extends TestSuite
 
     public function testGetMigrationDataNip_SCParam()
     {
+        $this->setEnv();
+
         /**
          * Initial tests - everything should be ok.
          */
@@ -189,6 +212,8 @@ final class CeidgTest extends TestSuite
 
     public function testGetMigrationDataRegonParam()
     {
+        $this->setEnv();
+
         /**
          * Initial tests - everything should be ok.
          */
@@ -216,6 +241,8 @@ final class CeidgTest extends TestSuite
 
     public function testGetMigrationDataRegon_SCParam()
     {
+        $this->setEnv();
+
         /**
          * Initial tests - everything should be ok.
          */
@@ -243,6 +270,8 @@ final class CeidgTest extends TestSuite
 
     public function testGetMigrationDataPostcodeParam()
     {
+        $this->setEnv();
+
         /**
          * Initial tests - everything should be ok.
          */
@@ -273,6 +302,8 @@ final class CeidgTest extends TestSuite
 
     public function testGetMigrationDataPKDParam()
     {
+        $this->setEnv();
+
         /**
          * Initial tests - everything should be ok.
          */
@@ -294,6 +325,8 @@ final class CeidgTest extends TestSuite
 
     public function testGetMigrationDataStatusParam()
     {
+        $this->setEnv();
+
         /**
          * Initial tests - everything should be ok.
          */
@@ -305,6 +338,8 @@ final class CeidgTest extends TestSuite
 
     public function testGetIdVSM()
     {
+        $this->setEnv();
+
         /**
          * Initial tests - everything should be ok.
          */
@@ -319,6 +354,8 @@ final class CeidgTest extends TestSuite
 
     public function testGetIdTwoCompanies()
     {
+        $this->setEnv();
+        
         /**
          * Initial tests - everything should be ok.
          */
