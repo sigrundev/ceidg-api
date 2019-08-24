@@ -153,7 +153,6 @@ final class CeidgTest extends TestCase
 
     public function testGetMigrationDataNipParam()
     {
-
         $this->setEnv();
 
         /**
@@ -355,7 +354,7 @@ final class CeidgTest extends TestCase
     public function testGetIdTwoCompanies()
     {
         $this->setEnv();
-        
+
         /**
          * Initial tests - everything should be ok.
          */
