@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/sigrundev/ceidg-api.svg?branch=master)](https://travis-ci.org/sigrundev/ceidg-api) [![Coverage Status](https://coveralls.io/repos/github/sigrundev/ceidg-api/badge.svg?branch=master)](https://coveralls.io/github/sigrundev/ceidg-api?branch=master)
+[![StyleCI](https://github.styleci.io/repos/203665408/shield?branch=master)](https://github.styleci.io/repos/203665408)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e2e75fb45810272e7bf0/maintainability)](https://codeclimate.com/github/sigrundev/ceidg-api/maintainability)
 
 # PHP CEIDG API library
