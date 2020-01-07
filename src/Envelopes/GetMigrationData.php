@@ -11,6 +11,28 @@
 
 namespace CeidgApi\Envelopes;
 
+/**
+ * Class GetMigrationData
+ *
+ * @method self setDateTo(string $date)
+ * @method self setDateFrom(string $date)
+ * @method self setUniqueId(string ...$args)
+ * @method self setMigrationDateFrom(string $date)
+ * @method self setMigrationDateTo(string $date)
+ * @method self setNIP(string ...$args)
+ * @method self setREGON(string ...$args)
+ * @method self setNIP_SC(string ...$args)
+ * @method self setREGON_SC(string ...$args)
+ * @method self setName(string ...$args)
+ * @method self setProvince(string ...$args)
+ * @method self setCounty(string ...$args)
+ * @method self setCommune(string ...$args)
+ * @method self setCity(string ...$args)
+ * @method self setStreet(string ...$args)
+ * @method self setPostcode(string ...$args)
+ * @method self setPKD(string ...$args)
+ * @method self setStatus(string ...$args)
+ */
 class GetMigrationData extends CeidgEnvelope
 {
     /**
@@ -35,7 +57,6 @@ class GetMigrationData extends CeidgEnvelope
         'Postcode' => 'list',
         'PKD' => 'list',
         'Status' => 'list',
-        'UniqueId' => 'list',
     ];
 
     /**

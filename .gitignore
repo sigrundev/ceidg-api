@@ -1,5 +1,6 @@
 /vendor/
 /build/
+.idea
 composer.lock
 .env
 *.cache

@@ -11,6 +11,14 @@
 
 namespace CeidgApi\Envelopes;
 
+/**
+ * Class GetId
+ *
+ * @method self setDateTo(string $date)
+ * @method self setDateFrom(string $date)
+ * @method self setMigrationDateFrom(string $date)
+ * @method self setMigrationDateTo(string $date)
+ */
 class GetId extends CeidgEnvelope
 {
     /**
