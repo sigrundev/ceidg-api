@@ -5,14 +5,13 @@
     "require": {
         "php": ">=7.2",
         "ext-soap": "^7.2",
-        "ext-SimpleXML": "^7.2"
+        "ext-SimpleXML": "^7.2",
+        "phpunit/phpunit": "^8.5",
+        "phpunit/phpcov": "^6.0",
+        "php-coveralls/php-coveralls": "^2.2",
+        "phpunit/php-code-coverage": "^7.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.4@dev",
-        "phpunit/phpcov": "^6.0@dev",
-        "php-coveralls/php-coveralls": "2.1.x-dev",
-        "vlucas/phpdotenv": "^3.4@dev",
-        "phpunit/php-code-coverage": "^7.0@dev"
     },
     "license": "MIT",
     "authors": [
@@ -22,6 +21,7 @@
         }
     ],
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload":{
       "psr-4": {
         "CeidgApi\\": "src/"
