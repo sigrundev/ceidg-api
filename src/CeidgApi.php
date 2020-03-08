@@ -14,10 +14,20 @@ namespace CeidgApi;
 use CeidgApi\Contracts\CeidgApiContract;
 use CeidgApi\Contracts\CeidgEnvelopeContract;
 use CeidgApi\Contracts\XmlParserContract;
+use CeidgApi\Envelopes\GetId;
+use CeidgApi\Envelopes\GetMigrationData;
+use CeidgApi\Envelopes\GetMigrationData201901;
 use CeidgApi\Parsers\BaseParser as XmlParser;
 use Exception;
 use SoapClient;
 
+/**
+ * Class CeidgApi
+ *
+ * @method GetId getId()
+ * @method GetMigrationData getMigrationData()
+ * @method GetMigrationData201901 getMigrationData201901()
+ */
 class CeidgApi implements CeidgApiContract
 {
     /**
